@@ -1,0 +1,10 @@
+echo "Doing keep only number"
+for a in *.jpg; do
+    newFile=$(echo $a | sed 's/０/0/g' | sed 's/１/1/g' | sed 's/２/2/g' | sed 's/３/3/g' | sed 's/４/4/g' | sed 's/５/5/g' | sed 's/６/6/g' | sed 's/７/7/g' | sed 's/８/8/g' | sed 's/９/9/g' | sed 's/[^0-9]*//g' | sed 's/^0*//' | xargs printf "%032d").jpg
+    #echo $newFile
+    if [ "$a" != "$newFile" ]
+    then
+        mv "$a" "$newFile"
+    fi
+done
+

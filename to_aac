@@ -1,0 +1,1 @@
+ffmpeg -i "$1" -c:a libfdk_aac -b:a 128k "${1%.*}.aac"

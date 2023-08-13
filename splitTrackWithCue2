@@ -1,0 +1,10 @@
+mkdir -p output
+cd output
+shnsplit -f "../$1" -t "%n %p-%a-%t" -o %2 "../$3"
+rm -vf *pregap*
+read -p "press enter to do cuetag"
+cuetag.sh "../$1" *.$2
+read -p "press enter to convert to m4a"
+flac_to_m4a
+rm *.flac
+cd ..

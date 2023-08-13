@@ -1,0 +1,20 @@
+echo "==== Yet Another Utility to batch rip off media ===="
+echo "format rip_all_title <TARGET> <Output Base string> <from> <to>"
+echo "Taret :"$1
+echo "Output Base string:"$2
+echo "rip from title "$3" to "$4
+echo "===================================================="
+
+if [ "$#" -ne 4 ]; then
+echo "Illegar number of parameters"
+exit
+fi
+
+IDX=$3
+MAX=$4
+while [ $IDX -le $MAX ]; do
+#echo $IDX
+#echo $2T$IDX.mkv
+HandBrakeCLI -i "$1" -t $IDX --audio-lang-list jpn,eng --all-audio -s "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" -o $2T$IDX.mkv --preset="Apple 1080p60 Surround"
+IDX=$(($IDX+1))
+done

@@ -1,0 +1,13 @@
+for a in *.dll ; 
+    do printf "\n%s:\n" $a; 
+    nm $a | grep $1 ; 
+    printf "\n"; 
+done
+
+for a in *.a ; 
+    do printf "\n%s:\n" $a; 
+    nm $a | grep $1 ; 
+    printf "\n"; 
+done
+
+

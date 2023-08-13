@@ -1,0 +1,11 @@
+#ffmpeg -i "$1" -map 0 -c:v libx265 -preset slow -crf 28 -c:a libfdk_aac -b:a 192k "${1%.*}.mkv"
+ffmpeg -i "$1" -map 0 -c:v libx264 -c:a libfdk_aac -b:a 192k "${1%.*}.mkv"
+ls -lh "$1"
+ls -lh "${1%.*}.mkv"
+echo "Do you want to delete:$1?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes )rm -vf "$1";break;;
+        No )break;;
+    esac
+done

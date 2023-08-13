@@ -1,0 +1,76 @@
+echo "bind_to_pdf"
+
+pngCnt=`ls -1 *.png 2>/dev/null | wc -l`
+if [ $pngCnt != 0 ]
+then
+echo "trying to convert png to jpg..."
+for a in *.png; do
+    convert -verbose "$a" "${a%.png}.jpg"
+done
+fi
+
+bmpCnt=`ls -1 *.bmp 2>/dev/null | wc -l`
+if [ $bmpCnt != 0 ]
+then
+echo "trying to convert bmp to jpg..."
+for a in *.bmp; do
+    convert -verbose "$a" "${a%.bmp}.jpg"
+done
+fi
+
+jpegCnt=`ls -1 *.jpeg 2>/dev/null | wc -l`
+if [ $jpegCnt != 0 ]
+then
+echo "trying to change jpeg to jpg..."
+for a in *.jpeg; do
+    convert -verbose "$a" "${a%.jpeg}.jpg"
+done
+fi
+
+JPEGCnt=`ls -1 *.JPEG 2>/dev/null | wc -l`
+if [ $JPEGCnt != 0 ]
+then
+echo "trying to change JPEG to jpg..."
+for a in *.JPEG; do
+    convert -verbose "$a" "${a%.JPEG}.jpg"
+done
+fi
+
+coverCnt=`ls -1 *cover*.jpg 2>/dev/null | wc -l`
+if [ $coverCnt <= 3 ]
+then
+echo "trying to mv *cover* to 0.jpg..."
+for a in *cover*.jpg; do
+    mv -v "$a" "0.jpg"
+done
+fi
+
+CoverCnt=`ls -1 *Cover*.jpg 2>/dev/null | wc -l`
+if [ $CoverCnt <= 3 ]
+then
+echo "trying to mv *Cover* to 0.jpg..."
+for a in *Cover*.jpg; do
+    mv -v "$a" "0.jpg"
+done
+fi
+
+to_low
+keep_only_number
+CUR_FOLDER=${PWD##*/}
+if [ "$#" -eq 0 ]; then
+    convert -verbose *.jpg -quality 100 "$CUR_FOLDER.pdf"
+else
+    convert -verbose *.$1 -quality 100 "$CUR_FOLDER.pdf"
+fi
+echo "Do you want to delete all jpg/jpeg/png/bmp ?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes )
+            rm -vf *.jpg;
+            rm -vf *.jpeg;
+            rm -vf *.png;
+            rm -vf *.bmp;
+            break;;
+        No )break;;
+    esac
+done
